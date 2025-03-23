@@ -54,7 +54,7 @@ bash $BOOT_SCRIPTS_PATH/install/install_gc_logging.sh
 
 ############################################################################################################
 # Se actualiza la configuración de zona horaria de Py (sin horario de invierno)
-bash $BOOT_SCRIPTS_PATH/install/install_py_tz_change.sh˝
+bash $BOOT_SCRIPTS_PATH/install/install_py_tz_change.sh
 ############################################################################################################
 
 ############################################################################################################
