@@ -30,18 +30,18 @@ EOT
 # 📌 Compilar la nueva zona horaria
 echo "📌 Compilando la nueva zona horaria..."
 echo "$(date '+%Y-%m-%d %H:%M:%S') - 📌 Compilando la nueva zona horaria..." >> /var/log/bims_boot.log
-sudo zic -d /usr/share/zoneinfo paraguay_fixed
+zic -d /usr/share/zoneinfo paraguay_fixed
 
 # 📌 Aplicar la nueva zona horaria al sistema
 echo "📌 Aplicando la nueva zona horaria..."
 echo "$(date '+%Y-%m-%d %H:%M:%S') - 📌 Aplicando la nueva zona horaria..." >> /var/log/bims_boot.log
-sudo ln -sf /usr/share/zoneinfo/America/Asuncion /etc/localtime
+ln -sf /usr/share/zoneinfo/America/Asuncion /etc/localtime
 
 # 📌 Reiniciar servicios de tiempo
 echo "📌 Reiniciando servicios..."
 echo "$(date '+%Y-%m-%d %H:%M:%S') - 📌 Reiniciando servicios..." >> /var/log/bims_boot.log
-sudo systemctl restart systemd-timedated
-sudo systemctl restart ntpd 2>/dev/null || sudo systemctl restart chronyd 2>/dev/null
+systemctl restart systemd-timedated
+systemctl restart ntpd 2>/dev/null || sudo systemctl restart chronyd 2>/dev/null
 
 # 📌 Verificar que el cambio fue exitoso
 echo "📌 Verificando cambios..."
