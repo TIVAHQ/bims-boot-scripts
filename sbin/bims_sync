@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Variables
-RSYNC_COMMAND="rsync -az -e \"ssh -i /root/rsync/rsync_key\" --exclude-from='/root/rsync/exclusions.txt' root@10.158.0.9:/var/www/vhosts/secure.bimsapp.com/public/ /var/www/vhosts/bims.app/public/ -v"
+RSYNC_COMMAND="rsync -az -e \"ssh -i /root/rsync/rsync_key\" --exclude-from='/root/rsync/exclusions.txt' root@10.158.0.11:/var/www/vhosts/secure.bimsapp.com/public/ /var/www/vhosts/bims.app/public/ -v"
 WATCHED_DIR="sql/sprints"
 CACHE_DIR_MODELS="/var/www/vhosts/secure.bimsapp.com/public/app/tmp/cache/models/*"
 CACHE_DIR_PERSISTENT="/var/www/vhosts/secure.bimsapp.com/public/app/tmp/cache/persistent/*"
