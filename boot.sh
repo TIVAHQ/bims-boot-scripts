@@ -2,6 +2,7 @@
 
 LOG_FILE="/var/log/bims_boot.log"
 BOOT_SCRIPTS_PATH="/opt/install/bims-boot-scripts"
+APACHE_VERSION=$(httpd -v | grep "Server version" | awk '{print $3}' | cut -d'/' -f2)
 
 echo "$(date '+%Y-%m-%d %H:%M:%S') - Boot Script Iniciado" >> $LOG_FILE
 
@@ -12,7 +13,9 @@ echo "$(date '+%Y-%m-%d %H:%M:%S') - Boot Script Iniciado" >> $LOG_FILE
 
 ############################################################################################################
 # Se actualiza php.ini
-bash $BOOT_SCRIPTS_PATH/install/install_phpini.sh
+if [[ "$APACHE_VERSION" == "2.4.6" ]]; then
+    bash $BOOT_SCRIPTS_PATH/install/install_phpini.sh
+fi
 ############################################################################################################
 
 ############################################################################################################
@@ -42,7 +45,9 @@ bash $BOOT_SCRIPTS_PATH/install/install_bims_cron.sh
 
 ############################################################################################################
 # Se baja mysqld
-killall -9 mysqld
+if [[ "$APACHE_VERSION" == "2.4.6" ]]; then
+    killall -9 mysqld
+fi
 # [ "$(hostname)" == "saas-web2-r0nf" ] && killall -9 httpd && systemctl restart httpd
 # service httpd restart;
 ############################################################################################################
@@ -59,8 +64,10 @@ bash $BOOT_SCRIPTS_PATH/install/install_py_tz_change.sh
 
 ############################################################################################################
 # Se configura el  Apache
-bash $BOOT_SCRIPTS_PATH/install/install_apache_log_level.sh
-bash $BOOT_SCRIPTS_PATH/install/install_apache_bims.sh
+if [[ "$APACHE_VERSION" == "2.4.6" ]]; then
+    bash $BOOT_SCRIPTS_PATH/install/install_apache_log_level.sh
+    bash $BOOT_SCRIPTS_PATH/install/install_apache_bims.sh
+fi
 ############################################################################################################
 
 
@@ -68,19 +75,20 @@ bash $BOOT_SCRIPTS_PATH/install/install_apache_bims.sh
 rm -rf /var/www/vhosts/secure.bimsapp.com/public/app/tmp/cache/models/*
 rm -rf /var/www/vhosts/secure.bimsapp.com/public/app/tmp/cache/persistent/*
 
+: > /opt/install/watchdog/push_watchdog.sh
 daemon --name bims-push-nossl --stop
 daemon --name bims-push-ssl --stop
 
-mv /var/www/vhosts/secure.bimsapp.com/public/app/webroot/jspm /var/www/vhosts/secure.bimsapp.com/public/app/webroot/jspm_old;
-echo "$(date '+%Y-%m-%d %H:%M:%S') - mv /var/www/vhosts/secure.bimsapp.com/public/app/webroot/jspm /var/www/vhosts/secure.bimsapp.com/public/app/webroot/jspm_old" >> /var/log/bims_boot.log
+if [[ "$APACHE_VERSION" == "2.4.6" ]]; then
+    mv /var/www/vhosts/secure.bimsapp.com/public/app/webroot/jspm /var/www/vhosts/secure.bimsapp.com/public/app/webroot/jspm_old;
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - mv /var/www/vhosts/secure.bimsapp.com/public/app/webroot/jspm /var/www/vhosts/secure.bimsapp.com/public/app/webroot/jspm_old" >> /var/log/bims_boot.log
+fi
 
 echo "$(date '+%Y-%m-%d %H:%M:%S') - Boot Script Finalizado" >> /var/log/bims_boot.log
 
 killall -9 httpd;
 
 service httpd restart;
-
-#!/bin/bash
 
 # Verifica si Apache está corriendo
 if ! pgrep -x "httpd" > /dev/null; then
