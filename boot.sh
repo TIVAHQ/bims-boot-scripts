@@ -70,6 +70,10 @@ if [[ "$APACHE_VERSION" == "2.4.6" ]]; then
 fi
 ############################################################################################################
 
+############################################################################################################
+# Se instala el watchdog de Apache
+bash $BOOT_SCRIPTS_PATH/install/install_apache_watchdog.sh
+############################################################################################################
 
 
 rm -rf /var/www/vhosts/secure.bimsapp.com/public/app/tmp/cache/models/*
@@ -86,26 +90,26 @@ fi
 
 echo "$(date '+%Y-%m-%d %H:%M:%S') - Boot Script Finalizado" >> /var/log/bims_boot.log
 
-killall -9 httpd;
+#killall -9 httpd;
 
-service httpd restart;
+#service httpd restart;
 
-# Verifica si Apache está corriendo
-if ! pgrep -x "httpd" > /dev/null; then
-    echo "Apache no está corriendo. Liberando semáforos y reiniciando el servicio..."
+# # Verifica si Apache está corriendo
+# if ! pgrep -x "httpd" > /dev/null; then
+#     echo "Apache no está corriendo. Liberando semáforos y reiniciando el servicio..."
 
-    # Liberar semáforos de Apache
-    for id in $(ipcs -s | awk '$3 == "apache" {print $2}'); do
-        ipcrm -s $id
-    done
+#     # Liberar semáforos de Apache
+#     for id in $(ipcs -s | awk '$3 == "apache" {print $2}'); do
+#         ipcrm -s $id
+#     done
 
-    # Reiniciar Apache
-    service httpd restart
+#     # Reiniciar Apache
+#     service httpd restart
 
-    echo "Proceso completado."
-else
-    echo "Apache está corriendo correctamente."
-fi
+#     echo "Proceso completado."
+# else
+#     echo "Apache está corriendo correctamente."
+# fi
 
 umount /mnt/bims-bucket-1
 fusermount -u /mnt/bims-bucket-1

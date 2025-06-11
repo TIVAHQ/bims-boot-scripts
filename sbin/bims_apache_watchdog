@@ -1,0 +1,19 @@
+#!/bin/bash
+# Script de vigilancia para Apache
+
+if ! pgrep -x "httpd" > /dev/null; then
+    echo "Apache no está corriendo. Liberando semáforos y reiniciando el servicio..."
+
+    # Liberar semáforos de Apache
+    for id in $(ipcs -s | awk '$3 == "apache" {print $2}'); do
+        ipcrm -s $id
+    done
+
+    # Reiniciar Apache
+    service httpd restart
+
+    echo "Proceso completado."
+else
+    echo "Apache está corriendo correctamente."
+fi
+

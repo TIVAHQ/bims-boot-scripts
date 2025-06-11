@@ -16,7 +16,7 @@ MAILTO=root
 # Cada Minuto se chequea el estado del montaje del bucket de Google Cloud Storage
 * * * * * root /usr/sbin/bims_check_cloud_storage
 
-# Cada 5 Minutos se sincronizan los archivos de BIMS
+# Cada 1 Minutos se sincronizan los archivos de BIMS
 * * * * * root /usr/sbin/bims_sync
 
 # Cada 10 Minutos se actualiza el Boot Script via GitHub
@@ -24,6 +24,9 @@ MAILTO=root
 
 # Cada 10 Minutos analiza debug.log para obtener un registro de actividad por tenant
 0,10,20,30,40,50 * * * * root /var/www/vhosts/secure.bimsapp.com/public/cake/console/cake -app /var/www/vhosts/secure.bimsapp.com/public/app multi getTenantsActivity
+
+# Cada 1 Minutos se verifica el estado del Apache
+* * * * * root /usr/sbin/bims_apache_watchdog.sh
 
 # Actualizado en fecha: 2013-07-17 13:11:00
 # Nuevo comentario
