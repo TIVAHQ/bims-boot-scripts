@@ -39,15 +39,20 @@ bash $BOOT_SCRIPTS_PATH/install/install_bims_update_boot_scripts.sh
 ############################################################################################################
 
 ############################################################################################################
+# Se instala el watchdog de Apache
+bash $BOOT_SCRIPTS_PATH/install/install_apache_watchdog.sh
+############################################################################################################
+
+############################################################################################################
 # Se instala el comando bims_cron_1 y se programa su ejecución cada 1 minuto
 bash $BOOT_SCRIPTS_PATH/install/install_bims_cron.sh
 ############################################################################################################
 
 ############################################################################################################
 # Se baja mysqld
-if [[ "$APACHE_VERSION" == "2.4.6" ]]; then
-    killall -9 mysqld
-fi
+# if [[ "$APACHE_VERSION" == "2.4.6" ]]; then
+#     killall -9 mysqld
+# fi
 # [ "$(hostname)" == "saas-web2-r0nf" ] && killall -9 httpd && systemctl restart httpd
 # service httpd restart;
 ############################################################################################################
@@ -59,20 +64,15 @@ bash $BOOT_SCRIPTS_PATH/install/install_gc_logging.sh
 
 ############################################################################################################
 # Se actualiza la configuración de zona horaria de Py (sin horario de invierno)
-bash $BOOT_SCRIPTS_PATH/install/install_py_tz_change.sh
+# bash $BOOT_SCRIPTS_PATH/install/install_py_tz_change.sh
 ############################################################################################################
 
 ############################################################################################################
 # Se configura el  Apache
-if [[ "$APACHE_VERSION" == "2.4.6" ]]; then
-    bash $BOOT_SCRIPTS_PATH/install/install_apache_log_level.sh
-    bash $BOOT_SCRIPTS_PATH/install/install_apache_bims.sh
-fi
-############################################################################################################
-
-############################################################################################################
-# Se instala el watchdog de Apache
-bash $BOOT_SCRIPTS_PATH/install/install_apache_watchdog.sh
+# if [[ "$APACHE_VERSION" == "2.4.6" ]]; then
+#     bash $BOOT_SCRIPTS_PATH/install/install_apache_log_level.sh
+#     bash $BOOT_SCRIPTS_PATH/install/install_apache_bims.sh
+# fi
 ############################################################################################################
 
 
