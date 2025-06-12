@@ -111,8 +111,12 @@ echo "$(date '+%Y-%m-%d %H:%M:%S') - Boot Script Finalizado" >> /var/log/bims_bo
 #     echo "Apache está corriendo correctamente."
 # fi
 
+bims_apache_watchdog;
+
 umount /mnt/bims-bucket-1
 fusermount -u /mnt/bims-bucket-1
 gcsfuse --implicit-dirs --file-mode 777 --dir-mode 777 -o allow_other bims-bucket-1 /mnt/bims-bucket-1
+
+
 
 # dummy 2025-06-11
