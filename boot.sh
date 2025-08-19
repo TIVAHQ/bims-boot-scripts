@@ -118,5 +118,7 @@ fusermount -u /mnt/bims-bucket-1
 gcsfuse --implicit-dirs --file-mode 777 --dir-mode 777 -o allow_other bims-bucket-1 /mnt/bims-bucket-1
 
 
+# Se elimina /opt/install/nagiosxi por requerimiento de secops
+rm -rf /opt/install/nagiosxi;
 
 # dummy 2025-06-11
