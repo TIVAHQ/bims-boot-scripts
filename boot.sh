@@ -77,7 +77,7 @@ bash $BOOT_SCRIPTS_PATH/install/install_gc_logging.sh
 
 ############################################################################################################
 # Se ejecuta el script para obtener las variables de entorno desde GCP Secrets Manager
-fetch-gcp-env-vars
+bash $BOOT_SCRIPTS_PATH/install/install_fetch-gcp-env-vars.sh
 ############################################################################################################
 
 
