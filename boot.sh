@@ -76,7 +76,7 @@ bash $BOOT_SCRIPTS_PATH/install/install_gc_logging.sh
 ############################################################################################################
 
 ############################################################################################################
-# Se ejecuta el script para obtener las variables de entorno desde GCP Secrets Manager
+# Se instala el script para obtener las variables de entorno desde GCP Secrets Manager
 bash $BOOT_SCRIPTS_PATH/install/install_fetch-gcp-env-vars.sh
 ############################################################################################################
 
@@ -116,6 +116,7 @@ echo "$(date '+%Y-%m-%d %H:%M:%S') - Boot Script Finalizado" >> /var/log/bims_bo
 #     echo "Apache está corriendo correctamente."
 # fi
 
+fetch-gcp-env-vars
 bims_apache_watchdog;
 
 umount /mnt/bims-bucket-1
