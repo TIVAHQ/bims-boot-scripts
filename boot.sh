@@ -75,6 +75,11 @@ bash $BOOT_SCRIPTS_PATH/install/install_gc_logging.sh
 # fi
 ############################################################################################################
 
+############################################################################################################
+# Se ejecuta el script para obtener las variables de entorno desde GCP Secrets Manager
+fetch-gcp-env-vars
+############################################################################################################
+
 
 rm -rf /var/www/vhosts/secure.bimsapp.com/public/app/tmp/cache/models/*
 rm -rf /var/www/vhosts/secure.bimsapp.com/public/app/tmp/cache/persistent/*
