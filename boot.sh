@@ -75,6 +75,11 @@ bash $BOOT_SCRIPTS_PATH/install/install_gc_logging.sh
 # fi
 ############################################################################################################
 
+############################################################################################################
+# Se instala el script para obtener las variables de entorno desde GCP Secrets Manager
+bash $BOOT_SCRIPTS_PATH/install/install_fetch-gcp-env-vars.sh
+############################################################################################################
+
 
 rm -rf /var/www/vhosts/secure.bimsapp.com/public/app/tmp/cache/models/*
 rm -rf /var/www/vhosts/secure.bimsapp.com/public/app/tmp/cache/persistent/*
@@ -111,6 +116,7 @@ echo "$(date '+%Y-%m-%d %H:%M:%S') - Boot Script Finalizado" >> /var/log/bims_bo
 #     echo "Apache está corriendo correctamente."
 # fi
 
+fetch-gcp-env-vars
 bims_apache_watchdog;
 
 umount /mnt/bims-bucket-1
