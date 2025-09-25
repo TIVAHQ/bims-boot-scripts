@@ -29,7 +29,7 @@ MAILTO=root
 * * * * * root /usr/sbin/bims_apache_watchdog
 
 # Cada 10 Minutos se ejecuta el script para obtener las variables de entorno desde GCP Secrets Manager
-*/10 * * * * root /usr/sbin/fetch-gcp-env-vars
+# */10 * * * * root /usr/sbin/fetch-gcp-env-vars
 
 # Actualizado en fecha: 2025-08-21 16:00:00
 # Nuevo comentario
