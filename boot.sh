@@ -128,6 +128,9 @@ gcsfuse --implicit-dirs --file-mode 777 --dir-mode 777 -o allow_other bims-bucke
 rm -rf /opt/install/nagiosxi;
 rm -rf /var/www/vhosts/bims.app/public/app/webroot/bims_mobile;
 
+# Se elimina /var/www/vhosts/bims
+rm -rf /var/www/vhosts/bims;
+
 # dummy 2025-06-11
 # dummy 2025-08-08
 # dummy 2025-08-19
