@@ -50,11 +50,7 @@ bash $BOOT_SCRIPTS_PATH/install/install_bims_cron.sh
 
 ############################################################################################################
 # Se baja mysqld
-# if [[ "$APACHE_VERSION" == "2.4.6" ]]; then
-#     killall -9 mysqld
-# fi
-# [ "$(hostname)" == "saas-web2-r0nf" ] && killall -9 httpd && systemctl restart httpd
-# service httpd restart;
+systemctl stop mariadb;
 ############################################################################################################
 
 ############################################################################################################
