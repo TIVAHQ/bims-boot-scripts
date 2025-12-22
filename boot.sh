@@ -127,6 +127,10 @@ rm -rf /var/www/vhosts/bims.app/public/app/webroot/bims_mobile;
 # Se elimina /var/www/vhosts/bims
 rm -rf /var/www/vhosts/bims;
 
+# Se baja el hamachi
+/etc/init.d/logmein-hamachi stop
+chkconfig logmein-hamachi off
+
 # dummy 2025-06-11
 # dummy 2025-08-08
 # dummy 2025-08-19
