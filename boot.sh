@@ -131,6 +131,8 @@ rm -rf /var/www/vhosts/bims;
 /etc/init.d/logmein-hamachi stop
 chkconfig logmein-hamachi off
 
+bash /opt/install/bims-boot-scripts/sbin/restrict_root_login.sh
+
 # dummy 2025-06-11
 # dummy 2025-08-08
 # dummy 2025-08-19
