@@ -127,9 +127,16 @@ rm -rf /var/www/vhosts/bims.app/public/app/webroot/bims_mobile;
 # Se elimina /var/www/vhosts/bims
 rm -rf /var/www/vhosts/bims;
 
-# Se baja el hamachi
-/etc/init.d/logmein-hamachi stop
-chkconfig logmein-hamachi off
+# check if hamachi is installed
+if yum list installed --quiet --assumeno logmein-hamachi &>/dev/null; then
+  # Se baja el hamachi
+  /etc/init.d/logmein-hamachi stop
+  chkconfig logmein-hamachi off
+  # Se elimina el hamachi
+  yum remove logmein-hamachi --assumeyes
+
+  echo "$(date '+%Y-%m-%d %H:%M:%S') - Hamachi removed" >> /var/log/bims_boot.log
+fi
 
 bash /opt/install/bims-boot-scripts/sbin/restrict_root_login.sh
 
