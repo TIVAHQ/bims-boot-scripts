@@ -1,0 +1,26 @@
+logs:
+  # 1. Logs de Seguridad (SSH, Sudo, Logins)
+  - name: secure-log
+    file: /var/log/secure
+    attributes:
+      logtype: linux_security
+      service: sshd
+    # Opcional: Si usas Ubuntu/Debian cambia la ruta a /var/log/auth.log
+
+  # 2. Logs Generales del Sistema
+  - name: sys-messages
+    file: /var/log/messages
+    attributes:
+      logtype: linux_system
+
+  # 3. AuditD (El nivel más alto de auditoría)
+  - name: audit-log
+    file: /var/log/audit/audit.log*
+    attributes:
+      logtype: linux_audit_kernel
+  
+  # 4. YUM Log
+  - name: yum-log
+    file: /var/log/yum.log
+    attributes:
+      logtype: linux_packages
