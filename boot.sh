@@ -138,7 +138,7 @@ if yum list installed --quiet --assumeno logmein-hamachi &>/dev/null; then
   echo "$(date '+%Y-%m-%d %H:%M:%S') - Hamachi removed" >> /var/log/bims_boot.log
 fi
 
-bash /opt/install/bims-boot-scripts/sbin/restrict_root_login.sh
+# bash /opt/install/bims-boot-scripts/sbin/restrict_root_login.sh
 
 echo "license_key: b714f68bf0bfd8690a7b0d2497c4c6742f97NRAL" > /etc/newrelic-infra.yml
 curl -o /etc/yum.repos.d/newrelic-infra.repo https://download.newrelic.com/infrastructure_agent/linux/yum/el/7/x86_64/newrelic-infra.repo
@@ -151,6 +151,13 @@ systemctl restart newrelic-infra
 bash ./sbin/cortex-9.0.0.141085.sh
 /opt/traps/bin/cytool runtime start all
 ####################################################################################
+
+# Reconfigurar sshd to use AllowTcpForwarding no, PrintLastLog yes, X11Forwarding no PermitRootLogin no
+sed -i 's/^#\?AllowTcpForwarding .*/AllowTcpForwarding no/' /etc/ssh/sshd_config
+sed -i 's/^#\?PrintLastLog .*/PrintLastLog yes/' /etc/ssh/sshd_config
+sed -i 's/^#\?X11Forwarding .*/X11Forwarding no/' /etc/ssh/sshd_config
+sed -i 's/^#\?PermitRootLogin .*/PermitRootLogin no/' /etc/ssh/sshd_config
+systemctl restart sshd
 
 # dummy 2025-06-11
 # dummy 2025-08-08
