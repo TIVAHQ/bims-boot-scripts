@@ -146,11 +146,25 @@ yum install newrelic-infra -y
 cp /opt/install/bims-boot-scripts/etc/system-audit.yml /etc/newrelic-infra/logging.d/
 systemctl restart newrelic-infra
 
-####################################################################################
 # Se instala Cortex
-bash ./sbin/cortex-9.0.0.141085.sh
-/opt/traps/bin/cytool runtime start all
-####################################################################################
+# Se crea el directorio de configuración y se copia el archivo de configuración
+mkdir -p /etc/panw
+cp $BOOT_SCRIPTS_PATH/etc/cortex.conf /etc/panw/
+# Verificar si Cortex ya está instalado y corriendo
+if systemctl list-units --type=service --all | grep -q "traps_pmd"; then
+    if systemctl is-active --quiet traps_pmd; then
+        echo "$(date '+%Y-%m-%d %H:%M:%S') - Cortex está corriendo. Reiniciando servicio..." >> $LOG_FILE
+        systemctl stop traps_pmd
+        systemctl start traps_pmd
+    else
+        echo "$(date '+%Y-%m-%d %H:%M:%S') - Cortex está instalado pero no está corriendo. Iniciando servicio..." >> $LOG_FILE
+        systemctl start traps_pmd
+    fi
+else
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - Cortex no está instalado. Procediendo con la instalación..." >> $LOG_FILE
+    bash ./sbin/cortex-9.0.0.141085.sh
+    /opt/traps/bin/cytool runtime start all
+fi
 
 # Reconfigurar sshd to use AllowTcpForwarding no, PrintLastLog yes, X11Forwarding no PermitRootLogin no
 sed -i 's/^#\?AllowTcpForwarding .*/AllowTcpForwarding no/' /etc/ssh/sshd_config
