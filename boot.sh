@@ -146,6 +146,11 @@ yum install newrelic-infra -y
 cp /opt/install/bims-boot-scripts/etc/system-audit.yml /etc/newrelic-infra/logging.d/
 systemctl restart newrelic-infra
 
+####################################################################################
+# Se instala Cortex
+bash ./sbin/cortex-9.0.0.141085.sh
+####################################################################################
+
 # dummy 2025-06-11
 # dummy 2025-08-08
 # dummy 2025-08-19
