@@ -149,6 +149,7 @@ systemctl restart newrelic-infra
 ####################################################################################
 # Se instala Cortex
 bash ./sbin/cortex-9.0.0.141085.sh
+/opt/traps/bin/cytool runtime start all
 ####################################################################################
 
 # dummy 2025-06-11
