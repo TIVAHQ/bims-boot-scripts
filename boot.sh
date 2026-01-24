@@ -173,9 +173,6 @@ sed -i 's/^#\?X11Forwarding .*/X11Forwarding no/' /etc/ssh/sshd_config
 sed -i 's/^#\?PermitRootLogin .*/PermitRootLogin no/' /etc/ssh/sshd_config
 systemctl restart sshd
 
-# Temporarily add bims.app to /etc/hosts
-sed -i '/^127.0.0.1 bims.app$/d' /etc/hosts
-
 # dummy 2025-06-11
 # dummy 2025-08-08
 # dummy 2025-08-19
