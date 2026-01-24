@@ -174,7 +174,7 @@ sed -i 's/^#\?PermitRootLogin .*/PermitRootLogin no/' /etc/ssh/sshd_config
 systemctl restart sshd
 
 # Temporarily add bims.app to /etc/hosts
-echo "127.0.0.1 bims.app" >> /etc/hosts
+sed -i '/^127.0.0.1 bims.app$/d' /etc/hosts
 
 # dummy 2025-06-11
 # dummy 2025-08-08
