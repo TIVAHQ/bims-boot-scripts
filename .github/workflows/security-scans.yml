@@ -1,0 +1,14 @@
+name: Trigger Security Scan
+
+on:
+  push:
+    branches:
+      - ma*
+      - dev*
+      - appsec/security*
+      
+
+jobs:
+  security-scan:
+    uses: TIVAHQ/security-scans/.github/workflows/centralized-scan.yml@main
+    secrets: inherit
